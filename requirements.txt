@@ -1,2 +1,5 @@
 docker
 nvdlib
+requests
+argparse
+re
