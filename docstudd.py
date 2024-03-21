@@ -8,7 +8,7 @@ import time
 def run_docker_command(docker_image, output_file=None):  #Docker RUN
     start_time = time.time()  # Measure start time
     client = docker.from_env()
-    volume_mapping = {"./": {"bind": "/home", "mode": "rw"}}   #Change the volumne mapping ./kraken/ to your own dir
+    volume_mapping = {os.getcwd(): {"bind": "/home", "mode": "rw"}}   #Change the volumne mapping ./kraken/ to your own dir
     entrypoint = "bash"
     command = "/home/docan.sh"   #This file should be present in current dir.
 
