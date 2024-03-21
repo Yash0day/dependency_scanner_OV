@@ -1,15 +1,15 @@
 import argparse
 import docker
 import re
-import os
 import requests
 import json
 import time
+import os
 
 def run_docker_command(docker_image, output_file=None):  #Docker RUN
     start_time = time.time()  # Measure start time
     client = docker.from_env()
-    volume_mapping = {os.getcwd(): {"bind": "/home", "mode": "rw"}}   #Change the volumne mapping ./kraken/ to your own dir
+    volume_mapping = {os.getcwd(): {"bind": "/home", "mode": "rw"}}
     entrypoint = "bash"
     command = "/home/docan.sh"   #This file should be present in current dir.
 
@@ -106,5 +106,3 @@ if __name__ == "__main__":
     total_time_taken = total_time_end - total_time_start  #Time for report formation
     
     print(f"[ = ] Total time taken: {round(total_time_taken / 60, 2)} minutes") #-> Put htis in the html file
-
-
