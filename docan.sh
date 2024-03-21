@@ -2,7 +2,6 @@
 
 
 output_dir="/home"
-rm ./installed_packages.txt
 output_file="$output_dir/installed_packages.txt"
 
 echo "[+] OS Version: $(cat /etc/issue | awk '{print $1, $2}')"
