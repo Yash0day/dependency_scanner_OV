@@ -2,9 +2,8 @@ import argparse
 import docker
 import re
 import requests
-import json
-import time
 import os
+import time
 
 def run_docker_command(docker_image, output_file=None):  #Docker RUN
     start_time = time.time()  # Measure start time
@@ -69,10 +68,18 @@ def parse_json_response(response_json, package_name, elapsed_time):  # For repor
     vulns = response_json.get('vulns', [])
     
     for vuln in vulns: 
-        html_output += "<h3>[+] ID: " + vuln['id'] + "</h3>"
+        html_output += "<h3>[*] ID: " + vuln['id'] + "</h3>"
         html_output += "<p>[+] Description: " + vuln.get('details', vuln.get('summary', 'No description available')) + "</p>"
         html_output += "<p>[+] Affected Versions: " + str(vuln['affected']) + "</p>"
         html_output += "<p>[+] Alias: " + str(vuln.get('aliases', 'No aliases available')) + "</p>"
+        #html_output += "<p>[+] Reference: " + str(vuln.get('references', '-')) + "</p>"
+        # Assuming vuln['references'] contains the list of dictionaries
+        references = vuln.get('references', [])
+        html_output += "<p>[+] Reference:</p>"
+        for ref in references:
+            html_output += f"<p>\tType: {ref.get('type', '-')}, URL: <a href='{ref.get('url', '-')}'>{ref.get('url', '-')}</a></p>"
+
+                         
         html_output += "<p>[+] Time taken: " + str(round(elapsed_time / 60, 2)) + " minutes</p>"
         html_output += "<hr>"
     
